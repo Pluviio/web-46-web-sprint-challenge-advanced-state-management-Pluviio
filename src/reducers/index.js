@@ -1,40 +1,57 @@
+import {
+    FETCH_START,
+    FETCH_SUCCESS,
+    FETCH_FAIL,
+    ADD_SMURF,
+    ERROR_SMURF
+} from "../actions";
+
 
 export const initialState = {
-    smurfs: {
-        name: {
-            position: "",
-            nickname: "",
-            description:""
-        },
-        isFetching: false,
-        error: ''
-    }
+    smurfs: [],
+    isFetching: false,
+    error: false
+
 }
 
 const reducer = (state = initialState, action) => {
-   switch (action.type) {
-       case(FETCH_START):
-       return({
-           ...state, 
-           person: {},
-           isFetching: true,
-           error: ''
-       });
-       case(FECTH_SUCCESS):
-       return({
-           ...state, 
-           smurf: action.payload,
-           isFetching: false,
-           error: ''
-       });
-       case(FETCH_FAIL):
-       return({
-           ...state,
-           smurf: {},
-           isFetching: false,
-           error: action.payload
-       })
-   }
+    switch (action.type) {
+        case (FETCH_START):
+            return ({
+                ...state,
+                smurfs: [],
+                isFetching: true,
+                error: false
+            });
+        case (FETCH_SUCCESS):
+            return ({
+                ...state,
+                smurfs: action.payload,
+                isFetching: false,
+                error: false
+            });
+        case (FETCH_FAIL):
+            return ({
+                ...state,
+                smurfs: [],
+                isFetching: false,
+                error: action.payload
+            })
+        case (ADD_SMURF):
+            return ({
+                ...state,
+                smurfs: [...state.smurfs, action.payload]
+            })
+        case (ERROR_SMURF):
+            return ({
+                ...state,
+                smurfs: [],
+                isFetching: false,
+                error: action.payload
+            })
+        default: 
+            return state;
+    }
 }
 
 //**************DO NOT EDIT ANY CODE BEYOND THIS POINT**************//
