@@ -1,8 +1,40 @@
 
 export const initialState = {
+    smurfs: {
+        name: {
+            position: "",
+            nickname: "",
+            description:""
+        },
+        isFetching: false,
+        error: ''
+    }
 }
 
-const reducer = ()=>{
+const reducer = (state = initialState, action) => {
+   switch (action.type) {
+       case(FETCH_START):
+       return({
+           ...state, 
+           person: {},
+           isFetching: true,
+           error: ''
+       });
+       case(FECTH_SUCCESS):
+       return({
+           ...state, 
+           smurf: action.payload,
+           isFetching: false,
+           error: ''
+       });
+       case(FETCH_FAIL):
+       return({
+           ...state,
+           smurf: {},
+           isFetching: false,
+           error: action.payload
+       })
+   }
 }
 
 //**************DO NOT EDIT ANY CODE BEYOND THIS POINT**************//
